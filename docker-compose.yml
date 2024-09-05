@@ -1,0 +1,32 @@
+
+
+services:
+
+  postgres:
+    image: postgres:15-alpine
+    restart: no
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_USER: yaro2k
+      POSTGRES_PASSWORD: yaro2k
+      POSTGRES_DB: data
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data"
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: no
+    ports:
+      - "127.0.0.1:8000:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: a@a.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+    volumes:
+      - "pgadmin:/var/lib/pgadmin"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  pgadmin:
